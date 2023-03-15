@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         myViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
+        myViewModel.get_facts_for_first_time(applicationContext)
         setupRecyclerView()
 
 

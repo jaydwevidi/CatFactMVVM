@@ -31,9 +31,9 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
 
             val x = instance.instance.getFact()
-            val temp = numList.value
-            temp?.add(x.fact)
-            numList.postValue(temp)
+            //val temp = numList.value
+            //temp?.add(x.fact)
+            //numList.postValue(temp)
             add_to_db(context , x)
             Log.d("TAG", "getFact: $x")
         }
@@ -46,6 +46,32 @@ class MainViewModel : ViewModel() {
             db.catFactDao().insert(fact)
             val factDBList = db.catFactDao().getAll()
             Log.d("TAG", "add_to_db: ${factDBList}")
+
+            var xd = mutableListOf<String>()
+
+            for(i in factDBList){
+                xd.add(i.fact)
+            }
+
+            numList.postValue(xd)
+
+        }
+    }
+
+    fun get_facts_for_first_time(context: Context){
+        Log.d("TAG", "add_to_db: ")
+        val db = PersonDatabase.getInstance(context)
+        viewModelScope.launch(Dispatchers.IO) {
+            val factDBList = db.catFactDao().getAll()
+            Log.d("TAG", "add_to_db: ${factDBList}")
+
+            var xd = mutableListOf<String>()
+
+            for(i in factDBList){
+                xd.add(i.fact)
+            }
+
+            numList.postValue(xd)
 
         }
     }
