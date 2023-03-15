@@ -1,20 +1,11 @@
 package com.example.simpleroomlist
 
-import android.app.Application
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
-import com.example.simpleroomlist.data.local.PersonDatabase
-import com.example.simpleroomlist.data.remote.CatFactResponse
-import com.example.simpleroomlist.data.remote.FetchNameHelper
 import com.example.simpleroomlist.databinding.ActivityMainBinding
-import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -25,32 +16,34 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        myViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        myViewModel.get_facts_for_first_time(applicationContext)
+        setupViewModel()
         setupRecyclerView()
-
-
     }
 
-    private fun setupRecyclerView(){
+    private fun setupViewModel() {
+        myViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        myViewModel.setupContext(applicationContext)
+        myViewModel.update_livedata_from_database()
+    }
+
+    private fun setupRecyclerView() {
         val mAdapter = MainRVAdapter(mutableListOf())
         binding.mainRecyclerView.apply {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
-        myViewModel.numList.observe(this){
+        myViewModel.numList.observe(this) {
             mAdapter.dataset = it
             binding.mainRecyclerView.adapter?.notifyDataSetChanged()
         }
     }
 
-    fun addButtonPressed(view : View)
-    {
-        myViewModel.getFact(application)
+    fun addButtonPressed(view: View) {
+        myViewModel.getFact()
     }
 
 
-    fun clearButton(view: View){
-        myViewModel.numList.value = mutableListOf<String>()
+    fun clearButton(view: View) {
+        myViewModel.delete_all_facts()
     }
 }

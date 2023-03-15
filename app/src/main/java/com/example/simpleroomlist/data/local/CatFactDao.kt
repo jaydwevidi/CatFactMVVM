@@ -15,6 +15,9 @@ interface CatFactDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(facts: CatFactResponse)
 
-    @Query("SELECT * FROM catfactresponse")
+    @Query("SELECT * FROM cat_fact_table")
     fun getAll() : List<CatFactResponse>
+
+    @Query("DELETE FROM cat_fact_table")
+    fun deleteAll()
 }

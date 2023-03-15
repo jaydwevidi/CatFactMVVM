@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.simpleroomlist.data.remote.CatFactResponse
 
 
-class MainRVAdapter(var dataset : MutableList<String>) : RecyclerView.Adapter<MainRVAdapter.MainViewHolder>() {
+class MainRVAdapter(var dataset : MutableList<CatFactResponse>) : RecyclerView.Adapter<MainRVAdapter.MainViewHolder>() {
 
     class MainViewHolder(view : View) : ViewHolder(view) {
         val mainText : TextView
@@ -26,7 +27,7 @@ class MainRVAdapter(var dataset : MutableList<String>) : RecyclerView.Adapter<Ma
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.mainText.text = dataset[position]
+        holder.mainText.text = dataset[position].toString()
     }
 
     override fun getItemCount(): Int {

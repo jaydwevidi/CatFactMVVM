@@ -7,23 +7,19 @@ import androidx.room.RoomDatabase
 import com.example.simpleroomlist.data.remote.CatFactResponse
 
 
-@Database(entities = [CatFactResponse::class] , version = 1 , exportSchema = true)
-abstract class PersonDatabase: RoomDatabase(){
+@Database(entities = [CatFactResponse::class], version = 1, exportSchema = true)
+abstract class PersonDatabase : RoomDatabase() {
 
-    abstract fun catFactDao() : CatFactDao
+    abstract fun catFactDao(): CatFactDao
 
     companion object {
         private var instance: PersonDatabase? = null
 
         @Synchronized
         fun getInstance(ctx: Context): PersonDatabase {
-            if (instance == null)
-                instance = Room.databaseBuilder(
-                    ctx, PersonDatabase::class.java,
-                    "person-database"
-                ).fallbackToDestructiveMigration().build()
-
-
+            if (instance == null) instance = Room.databaseBuilder(
+                ctx, PersonDatabase::class.java, "person-database"
+            ).fallbackToDestructiveMigration().build()
             return instance!!
 
         }
