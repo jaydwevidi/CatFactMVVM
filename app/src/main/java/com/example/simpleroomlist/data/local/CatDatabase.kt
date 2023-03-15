@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.simpleroomlist.data.remote.CatFactResponse
 
 
-@Database(entities = [CatFactResponse::class] , version = 1)
+@Database(entities = [CatFactResponse::class] , version = 1 , exportSchema = true)
 abstract class PersonDatabase: RoomDatabase(){
 
     abstract fun catFactDao() : CatFactDao
