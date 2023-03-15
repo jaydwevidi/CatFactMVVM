@@ -3,9 +3,9 @@ package com.example.simpleroomlist.data.remote
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "catfactresponse")
 data class CatFactResponse(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id: Int,
     val fact: String,
     val length: Int

@@ -1,5 +1,6 @@
 package com.example.simpleroomlist
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import com.example.simpleroomlist.data.local.PersonDatabase
+import com.example.simpleroomlist.data.remote.CatFactResponse
 import com.example.simpleroomlist.data.remote.FetchNameHelper
 import com.example.simpleroomlist.databinding.ActivityMainBinding
 import kotlin.random.Random
@@ -25,9 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
 
-        myViewModel.numList.observe(this){
 
-        }
     }
 
     private fun setupRecyclerView(){
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     fun addButtonPressed(view : View)
     {
-        myViewModel.getFact()
+        myViewModel.getFact(application)
     }
 
 
