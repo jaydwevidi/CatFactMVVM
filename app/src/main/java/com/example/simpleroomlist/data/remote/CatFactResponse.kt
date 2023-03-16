@@ -9,4 +9,11 @@ data class CatFactResponse(
     val id: Int,
     val fact: String,
     val length: Int
-)
+){
+    override fun toString(): String {
+        return "Primary Key ID : $id\n" +
+                "Fact : " +
+                "$fact\n" +
+                "Fact Character Length : $length"
+    }
+}
