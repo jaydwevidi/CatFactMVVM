@@ -1,5 +1,8 @@
 package com.example.simpleroomlist.di
 
+import android.app.Application
+import com.example.simpleroomlist.data.local.CatFactDao
+import com.example.simpleroomlist.data.local.PersonDatabase
 import com.example.simpleroomlist.data.remote.CatFactApi
 import dagger.Module
 import dagger.Provides
@@ -26,4 +29,9 @@ class AppModule {
         return builder.create(CatFactApi::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideCatDao(appContext : Application) : CatFactDao {
+        return PersonDatabase.getInstance(appContext).catFactDao()
+    }
 }
