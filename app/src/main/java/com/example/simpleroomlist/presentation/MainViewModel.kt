@@ -21,13 +21,11 @@ class MainViewModel @Inject constructor(
 
     init {
         catFactList.value = mutableListOf()
-
+        updateLivedataFromDatabase()
     }
 
-
     fun getFact() {
-        viewModelScope.launch {
-
+        viewModelScope.launch(Dispatchers.IO) {
             val newCatFact = catFactApi.getFact()
             addFactToDb(newCatFact)
             updateLivedataFromDatabase()
@@ -41,13 +39,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun updateLivedataFromDatabase() {
+    private fun updateLivedataFromDatabase() {
         viewModelScope.launch(Dispatchers.IO) {
             val factDBList = catDao.getAll()
             catFactList.postValue(factDBList.toMutableList())
         }
     }
-
 
     fun deleteAllFacts() {
         viewModelScope.launch(Dispatchers.IO) {

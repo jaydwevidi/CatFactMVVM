@@ -15,17 +15,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
-        setupViewModel()
+        myViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         setupRecyclerView()
     }
 
-    private fun setupViewModel() {
-        myViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        myViewModel.updateLivedataFromDatabase()
-    }
 
     private fun setupRecyclerView() {
         val mAdapter = MainRVAdapter(mutableListOf())

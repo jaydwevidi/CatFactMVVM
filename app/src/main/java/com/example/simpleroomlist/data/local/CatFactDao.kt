@@ -1,7 +1,6 @@
 package com.example.simpleroomlist.data.local
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,11 +12,11 @@ interface CatFactDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(facts: CatFactResponse)
+    suspend fun insert(facts: CatFactResponse)
 
     @Query("SELECT * FROM cat_fact_table")
-    fun getAll() : List<CatFactResponse>
+    suspend fun getAll() : List<CatFactResponse>
 
     @Query("DELETE FROM cat_fact_table")
-    fun deleteAll()
+    suspend fun deleteAll()
 }
