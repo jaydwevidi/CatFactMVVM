@@ -1,4 +1,4 @@
-package com.example.simpleroomlist
+package com.example.simpleroomlist.presentation
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.simpleroomlist.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var myViewModel: MainViewModel
@@ -22,8 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         myViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        myViewModel.setupContext(applicationContext)
-        myViewModel.update_livedata_from_database()
+        myViewModel.updateLivedataFromDatabase()
     }
 
     private fun setupRecyclerView() {
@@ -32,9 +33,9 @@ class MainActivity : AppCompatActivity() {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
-        myViewModel.numList.observe(this) {
+        myViewModel.catFactList.observe(this) {
             mAdapter.dataset = it
-            binding.mainRecyclerView.adapter?.notifyDataSetChanged()
+            mAdapter.notifyDataSetChanged()
         }
     }
 
@@ -44,6 +45,6 @@ class MainActivity : AppCompatActivity() {
 
 
     fun clearButton(view: View) {
-        myViewModel.delete_all_facts()
+        myViewModel.deleteAllFacts()
     }
 }

@@ -1,4 +1,4 @@
-package com.example.simpleroomlist
+package com.example.simpleroomlist.presentation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.simpleroomlist.R
 import com.example.simpleroomlist.data.remote.CatFactResponse
 
 
